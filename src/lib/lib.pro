@@ -36,3 +36,4 @@ INSTALLS += target
 !CONFIG(optify): INSTALLS += headers
 
 include(base/base.pri)
+include(dbus/dbus.pri)
