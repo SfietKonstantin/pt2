@@ -1,0 +1,39 @@
+{
+    "objects": {
+        "Station": {
+            "name": "PT2::Station",
+            "type": "a{sv}sa{sv}"
+        }
+    },
+    "methods": [
+        {
+            "class": "real time",
+            "name": "suggested stations",
+            "doc": "This method is used to register a list of suggested stations. Returned stations are used in\nother signals, so these stations can store additional properties. An interesting property\nto also set is \"backendName\", that provides to the GUI an information about the backend\nused for getting this station. It can be used by the user to distinguish between two\nstations that have the same name, but are provided by different backends.",
+            "source": "debug(\"abs-backend-wrapper\") << \"Suggested stations registered\";\ndebug(\"abs-backend-wrapper\") << \"Request\" << request;\ndebug(\"abs-backend-wrapper\") << \"list of suggested stations\";\nforeach (Station station, suggestedStationList) {\n    debug(\"abs-backend-wrapper\") << station.name();\n}",
+            "capability": {
+                "name": "SUGGEST_STATION_FROM_STRING",
+                "doc": "The backend is to able suggest a list of stations from a\nprovided string."
+            },
+            "signal": {
+                "params": [
+                    {
+                        "name": "partialStation",
+                        "type": "s", 
+                        "doc": "partial station name"
+                    }
+                ]
+            },
+            "method": {
+                "params": [
+                    {
+                        "name": "suggestedStationList",
+                        "object": "Station",
+                        "list": true,
+                        "doc": "suggested station list"
+                    }
+                ]
+            }
+        }
+    ]
+}

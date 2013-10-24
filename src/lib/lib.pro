@@ -21,7 +21,9 @@ TARGET = $${NAME}
 target.path = $${LIBDIR}
 
 HEADERS += pt2_global.h \
-    debug.h
+    debug.h \
+    errorid.h \
+    capabilitiesconstants.h
 
 QMAKE_PKGCONFIG_NAME = lib$$TARGET
 QMAKE_PKGCONFIG_DESCRIPTION = Public transportation 2 development files
@@ -37,3 +39,5 @@ INSTALLS += target
 
 include(base/base.pri)
 include(dbus/dbus.pri)
+include(manager/manager.pri)
+include(provider/provider.pri)
