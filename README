@@ -1,0 +1,9 @@
+libpt2, a universal library and QML plugin to deal with public transportation
+
+libpt2 roots from libpublictransportation, an attempt to provide a way to merge
+public transportation related informations into one library, in order for an 
+unique application to manage multiple public transportation related information.
+
+libpt2 is a small rewrite, that borrows a lot from libpublictransportation. It
+is now written in Qt 5, and aims at being integrated into Nemo based products
+(Nemo mobile and Sailfish OS).
