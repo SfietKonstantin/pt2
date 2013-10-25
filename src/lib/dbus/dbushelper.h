@@ -47,6 +47,9 @@ class Company;
 class Line;
 class Ride;
 class Station;
+class CompanyNodeData;
+class LineNodeData;
+class RideNodeData;
 
 /**
  * @brief Marshall a transportation object to a DBus argument
@@ -139,6 +142,48 @@ QDBusArgument & operator<<(QDBusArgument &argument, const Station &station);
  * @return DBus argument without the station.
  */
 const QDBusArgument & operator>>(const QDBusArgument &argument, Station &station);
+/**
+ * @brief Marshall a company node data
+ * @param[out] argument DBus argument.
+ * @param[in] companyNodeData company node data.
+ * @return DBus argument containing the company node data.
+ */
+QDBusArgument & operator<<(QDBusArgument &argument, const CompanyNodeData &companyNodeData);
+/**
+ * @brief Demarshall a company node data
+ * @param[in] argument DBus argument.
+ * @param[out] companyNodeData company node data.
+ * @return DBus argument without the company node data.
+ */
+const QDBusArgument & operator>>(const QDBusArgument &argument, CompanyNodeData &companyNodeData);
+/**
+ * @brief Marshall a line node data
+ * @param[out] argument DBus argument.
+ * @param[in] lineNodeData line node data.
+ * @return DBus argument containing the company node data.
+ */
+QDBusArgument & operator<<(QDBusArgument &argument, const LineNodeData &lineNodeData);
+/**
+ * @brief Demarshall a line node data
+ * @param[in] argument DBus argument.
+ * @param[out] lineNodeData line node data.
+ * @return DBus argument without the line node data.
+ */
+const QDBusArgument & operator>>(const QDBusArgument &argument, LineNodeData &lineNodeData);
+/**
+ * @brief Marshall a ride node data
+ * @param[out] argument DBus argument.
+ * @param[in] rideNodeData ride node data.
+ * @return DBus argument containing the ride node data.
+ */
+QDBusArgument & operator<<(QDBusArgument &argument, const RideNodeData &rideNodeData);
+/**
+ * @brief Demarshall a ride node data
+ * @param[in] argument DBus argument.
+ * @param[out] rideNodeData node data.
+ * @return DBus argument without the ride node data.
+ */
+const QDBusArgument & operator>>(const QDBusArgument &argument, RideNodeData &rideNodeData);
 
 /**
  * @brief Register DBus types

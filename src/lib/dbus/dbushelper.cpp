@@ -39,6 +39,9 @@
 #include "base/line.h"
 #include "base/ride.h"
 #include "base/station.h"
+#include "base/companynodedata.h"
+#include "base/linenodedata.h"
+#include "base/ridenodedata.h"
 
 #include <QtDBus/QtDBus>
 #include <QtDBus/QDBusArgument>
@@ -170,6 +173,111 @@ const QDBusArgument & operator>>(const QDBusArgument &argument, Station &station
     return transportationObjectFromDBus(argument, station);
 }
 
+QDBusArgument & operator<<(QDBusArgument &argument, const CompanyNodeData &companyNodeData)
+{
+    argument.beginStructure();
+    argument << companyNodeData.company();
+    argument.beginArray();
+    foreach (const LineNodeData &lineNodeData, companyNodeData.lineNodeDataList()) {
+        argument << lineNodeData;
+    }
+    argument.endArray();
+    argument.endStructure();
+
+    return argument;
+}
+
+const QDBusArgument & operator>>(const QDBusArgument &argument, CompanyNodeData &companyNodeData)
+{
+    argument.beginStructure();
+    Company company;
+    argument >> company;
+    companyNodeData.setCompany(company);
+
+    argument.beginArray();
+    QList<LineNodeData> lineNodeDataList;
+    while (!argument.atEnd()) {
+        LineNodeData lineNodeData;
+        argument >> lineNodeData;
+        lineNodeDataList.append(lineNodeData);
+    }
+    argument.endArray();
+    companyNodeData.setLineNodeDataList(lineNodeDataList);
+    argument.endStructure();
+
+    return argument;
+}
+
+QDBusArgument & operator<<(QDBusArgument &argument, const LineNodeData &lineNodeData)
+{
+    argument.beginStructure();
+    argument << lineNodeData.line();
+    argument.beginArray();
+    foreach (const RideNodeData &rideNodeData, lineNodeData.rideNodeDataList()) {
+        argument << rideNodeData;
+    }
+    argument.endArray();
+    argument.endStructure();
+
+    return argument;
+}
+
+const QDBusArgument & operator>>(const QDBusArgument &argument, LineNodeData &lineNodeData)
+{
+    argument.beginStructure();
+    Line line;
+    argument >> line;
+    lineNodeData.setLine(line);
+
+    argument.beginArray();
+    QList<RideNodeData> rideNodeDataList;
+    while (!argument.atEnd()) {
+        RideNodeData rideNodeData;
+        argument >> rideNodeData;
+        rideNodeDataList.append(rideNodeData);
+    }
+    argument.endArray();
+    lineNodeData.setRideNodeDataList(rideNodeDataList);
+    argument.endStructure();
+
+    return argument;
+}
+
+QDBusArgument & operator<<(QDBusArgument &argument, const RideNodeData &rideNodeData)
+{
+    argument.beginStructure();
+    argument << rideNodeData.ride();
+    argument.beginArray();
+    foreach (const Station &station, rideNodeData.stationList()) {
+        argument << station;
+    }
+    argument.endArray();
+    argument.endStructure();
+
+    return argument;
+}
+
+const QDBusArgument & operator>>(const QDBusArgument &argument, RideNodeData &rideNodeData)
+{
+    argument.beginStructure();
+    Ride ride;
+    argument >> ride;
+    rideNodeData.setRide(ride);
+
+    argument.beginArray();
+    QList<Station> stationList;
+    while (!argument.atEnd()) {
+        Station station;
+        argument >> station;
+        stationList.append(station);
+    }
+    argument.endArray();
+    rideNodeData.setStationList(stationList);
+    argument.endStructure();
+
+    return argument;
+}
+
 void registerDBusTypes()
 {
     qDBusRegisterMetaType<Company>();
@@ -180,6 +288,13 @@ void registerDBusTypes()
     qDBusRegisterMetaType<QList<Ride> >();
     qDBusRegisterMetaType<Station>();
     qDBusRegisterMetaType<QList<Station> >();
+    qDBusRegisterMetaType<CompanyNodeData>();
+    qDBusRegisterMetaType<QList<CompanyNodeData> >();
+    qDBusRegisterMetaType<LineNodeData>();
+    qDBusRegisterMetaType<QList<LineNodeData> >();
+    qDBusRegisterMetaType<RideNodeData>();
+    qDBusRegisterMetaType<QList<RideNodeData> >();
+
 }
 
 }
