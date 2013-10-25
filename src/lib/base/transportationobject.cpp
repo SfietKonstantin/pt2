@@ -55,6 +55,8 @@ TransportationObjectPrivate::~TransportationObjectPrivate()
 {
 }
 
+////// End of private class //////
+
 TransportationObject::TransportationObject()
     : d(new TransportationObjectPrivate())
 {
@@ -67,6 +69,21 @@ TransportationObject::TransportationObject(const TransportationObject &other)
 
 TransportationObject::~TransportationObject()
 {
+}
+
+bool TransportationObject::operator==(const PT2::TransportationObject &other) const
+{
+    return (d->identifier == other.identifier());
+}
+
+bool TransportationObject::operator!=(const PT2::TransportationObject &other) const
+{
+    return !(*this == other);
+}
+
+bool TransportationObject::operator<(const PT2::TransportationObject &other) const
+{
+    return (d->name < other.name());
 }
 
 bool TransportationObject::isNull() const
@@ -87,7 +104,7 @@ void TransportationObject::setIdentifier(const QString &identifier)
 
 QVariantMap TransportationObject::internal() const
 {
-    return d->properties;
+    return d->internal;
 }
 
 void TransportationObject::setInternal(const QVariantMap &internal)
@@ -115,22 +132,4 @@ void TransportationObject::setProperties(const QVariantMap &properties)
     d->properties = properties;
 }
 
-}
-
-bool operator==(const PT2::TransportationObject  &object1,
-                const PT2::TransportationObject  &object2)
-{
-    return (object1.identifier() == object2.identifier());
-}
-
-bool operator!=(const PT2::TransportationObject  &object1,
-                const PT2::TransportationObject  &object2)
-{
-    return !(object1 == object2);
-}
-
-bool operator<(const PT2::TransportationObject &object1,
-               const PT2::TransportationObject &object2)
-{
-    return (object1.name() < object2.name());
 }

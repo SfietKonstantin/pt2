@@ -153,6 +153,34 @@ public:
      */
     virtual ~TransportationObject();
     /**
+     * @brief Equality
+     *
+     * @param other other object to compare to.
+     * @return if the two transportation objects are equal.
+     */
+    bool operator==(const TransportationObject &other) const;
+    /**
+     * @brief Inequality
+     *
+     * @param other other object to compare to.
+     * @return if the two transportation objects are not equal.
+     */
+    bool operator!=(const TransportationObject &other) const;
+    /**
+     * @internal
+     * @brief Inequality
+     *
+     * This method compares a this object to another transportation object
+     * sorting them with name. This transportation object will
+     * be lesser than another if the name is lesser in the lexicographic
+     * order.
+     *
+     * @param other other object to compare to.
+     * @return if this transportation object is lesser that the other one.
+     */
+    bool operator<(const PT2::TransportationObject &other) const;
+
+    /**
      * @brief If the transportation object is null
      * @return if the transportation object is null.
      */
@@ -205,50 +233,4 @@ protected:
 };
 
 }
-
-/**
- * @brief Equality
- *
- * Note that we use shared pointer on transportation objects.
- * It is because all objects that derives from TransportationObject
- * are accessed using shared pointers.
- *
- * @param object1 first transportation object to compare.
- * @param object2 second transportation object to compare.
- * @return if the two transportation objects are equal.
- */
-bool operator==(const PT2::TransportationObject &object1, const PT2::TransportationObject &object2);
-
-/**
- * @brief Inequality
- *
- * Note that we use shared pointer on transportation objects.
- * It is because all objects that derives from TransportationObject
- * are accessed using shared pointers.
- *
- * @param object1 first transportation object to compare.
- * @param object2 second transportation object to compare.
- * @return if the two transportation objects are not equal.
- */
-bool operator!=(const PT2::TransportationObject &object1, const PT2::TransportationObject &object2);
-
-/**
- * @internal
- * @brief Inequality
- *
- * This method compares a transportation object data to another
- * sorting them with name. This transportation object data will
- * be lesser than another if the name is lesser in the lexicographic
- * order.
- *
- * Note that we use shared pointer on transportation objects.
- * It is because all objects that derives from TransportationObject
- * are accessed using shared pointers.
- *
- * @param object1 first transportation object to compare.
- * @param object2 second transportation object to compare.
- * @return if the first transportation object is lesser that the second one.
- */
-bool operator<(const PT2::TransportationObject &object1, const PT2::TransportationObject &object2);
-
 #endif // PT2_TRANSPORTATIONOBJECT_H
