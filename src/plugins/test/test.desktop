@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Test
+Comment=Test provider !
+Icon=
+Type=Service
+Exec=$PROVIDER libtest.so
+X-PublicTransportation-BackendInfo-Id=org.SfietKonstantin.publictransportation.test
+X-PublicTransportation-BackendInfo-Country=FR
+X-PublicTransportation-BackendInfo-Cities=Paris
+X-PublicTransportation-BackendInfo-Author=Lucien XU
+X-PublicTransportation-BackendInfo-Email=sfietkonstantin@free.fr
+X-PublicTransportation-BackendInfo-Website=
+X-PublicTransportation-BackendInfo-Version=1.0.0
