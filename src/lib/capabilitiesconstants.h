@@ -45,5 +45,4 @@
  */
 #define CAPABILITY_REAL_TIME_SUGGEST_STATION_FROM_STRING "capability:real_time_suggest_station_from_string"
 
-
 #endif // CAPABILITIESCONSTANTS_H

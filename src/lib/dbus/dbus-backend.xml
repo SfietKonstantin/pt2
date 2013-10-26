@@ -20,7 +20,7 @@
         <method name="registerRealTimeSuggestedStations">
             <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="const QList&lt;PT2::Station&gt; &amp;"/>
             <arg direction="in" name="request" type="s"/>
-            <arg direction="in" name="suggestedStationList" type="a(a{sv}sa{sv})"/>
+            <arg direction="in" name="suggestedStationList" type="a(sa{sv}sa{sv})"/>
         </method>
     </interface>
 </node>

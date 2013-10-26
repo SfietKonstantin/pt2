@@ -2,7 +2,7 @@
     "objects": {
         "Station": {
             "name": "PT2::Station",
-            "type": "a{sv}sa{sv}"
+            "type": "sa{sv}sa{sv}"
         }
     },
     "methods": [
