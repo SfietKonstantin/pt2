@@ -146,6 +146,38 @@ void AbstractBackendWrapper::registerRealTimeSuggestedStations(const QString &re
     }
 }
 
+void AbstractBackendWrapper::registerRealTimeRidesFromStation(const QString &request, const QList<PT2::CompanyNodeData> &rideList)
+{
+    Q_D(AbstractBackendWrapper);
+    if (d->requests.contains(request)) {
+        if (d->requests.value(request)->type != AbstractBackendWrapper::RealTime_RidesFromStationType) {
+            registerError(request, ERROR_INVALID_REQUEST_TYPE, "Invalid request type");
+            return;
+        }
+
+        
+
+        delete d->requests.take(request);
+        emit realTimeRidesFromStationRegistered(request, rideList);
+    }
+}
+
+void AbstractBackendWrapper::registerRealTimeSuggestedLines(const QString &request, const QList<PT2::Line> &suggestedLineList)
+{
+    Q_D(AbstractBackendWrapper);
+    if (d->requests.contains(request)) {
+        if (d->requests.value(request)->type != AbstractBackendWrapper::RealTime_SuggestLineFromStringType) {
+            registerError(request, ERROR_INVALID_REQUEST_TYPE, "Invalid request type");
+            return;
+        }
+
+        
+
+        delete d->requests.take(request);
+        emit realTimeSuggestedLinesRegistered(request, suggestedLineList);
+    }
+}
+
 QString AbstractBackendWrapper::executable() const
 {
     Q_D(const AbstractBackendWrapper);

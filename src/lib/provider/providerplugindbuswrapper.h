@@ -44,10 +44,10 @@
 namespace PT2
 {
 
-class Company;
 class Line;
-class Ride;
 class Station;
+class Ride;
+class CompanyNodeData;
 class ProviderPluginDBusWrapperPrivate;
 
 /**

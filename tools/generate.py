@@ -90,9 +90,9 @@ def makeMethod(doc, type, data, objects):
         if "type" in parameter:
             paramType = parameter["type"]
         elif "object" in parameter:
-            paramType = objects[parameter["object"]]["type"]
+            paramType = "(" + objects[parameter["object"]]["type"] + ")"
         if "list" in parameter and parameter["list"]:
-            paramType = "a(" + paramType + ")"
+            paramType = "a" + paramType
         arg.setAttribute("type", paramType)
         if type == "method":
             arg.setAttribute("direction", "in")

@@ -21,13 +21,15 @@ HEADERS += backendmodel.h \
     abstractmodel_p.h \
     abstractmultibackendmodel.h \
     abstractmultibackendmodel_p.h \
-    realtimestationsearchmodel.h
+    realtimestationsearchmodel.h \
+    realtimeridesfromstationmodel.h
 
 SOURCES += plugin.cpp \
     backendmodel.cpp \
     abstractmodel.cpp \
     abstractmultibackendmodel.cpp \
-    realtimestationsearchmodel.cpp
+    realtimestationsearchmodel.cpp \
+    realtimeridesfromstationmodel.cpp
 
 INSTALLS += target import
 

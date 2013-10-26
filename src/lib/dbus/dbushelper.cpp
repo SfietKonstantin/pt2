@@ -34,6 +34,7 @@
  * @short Implementation of helper functions used by DBus interface
  */
 
+#include "debug.h"
 #include "dbushelper.h"
 #include "base/company.h"
 #include "base/line.h"
@@ -177,7 +178,7 @@ QDBusArgument & operator<<(QDBusArgument &argument, const CompanyNodeData &compa
 {
     argument.beginStructure();
     argument << companyNodeData.company();
-    argument.beginArray();
+        argument.beginArray(qMetaTypeId<PT2::LineNodeData>());
     foreach (const LineNodeData &lineNodeData, companyNodeData.lineNodeDataList()) {
         argument << lineNodeData;
     }
@@ -212,7 +213,7 @@ QDBusArgument & operator<<(QDBusArgument &argument, const LineNodeData &lineNode
 {
     argument.beginStructure();
     argument << lineNodeData.line();
-    argument.beginArray();
+        argument.beginArray(qMetaTypeId<PT2::RideNodeData>());
     foreach (const RideNodeData &rideNodeData, lineNodeData.rideNodeDataList()) {
         argument << rideNodeData;
     }
@@ -247,7 +248,7 @@ QDBusArgument & operator<<(QDBusArgument &argument, const RideNodeData &rideNode
 {
     argument.beginStructure();
     argument << rideNodeData.ride();
-    argument.beginArray();
+    argument.beginArray(qMetaTypeId<PT2::Station>());
     foreach (const Station &station, rideNodeData.stationList()) {
         argument << station;
     }

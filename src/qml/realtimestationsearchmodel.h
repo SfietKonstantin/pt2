@@ -69,7 +69,11 @@ public:
         /**
          * @short Company role
          */
-        ProviderNameRole
+        ProviderNameRole,
+        /**
+         * @short If the backend support getting rides from station
+         */
+        SupportRidesFromStationRole
     };
     /**
      * @short Default constructor
@@ -95,6 +99,14 @@ public Q_SLOTS:
     void requestRidesFromStation(int index);
 Q_SIGNALS:
     void shortChanged();
+    /**
+     * @brief Rides from station requested
+     * @param backend backend answering the request.
+     * @param request request identifier.
+     * @param station station.
+     */
+    void ridesFromStationRequested(AbstractBackendWrapper *backend, const QString &request,
+                                   const Station &station);
 private:
     Q_DECLARE_PRIVATE(RealTimeStationSearchModel)
 };

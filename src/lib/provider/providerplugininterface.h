@@ -44,10 +44,11 @@
 namespace PT2
 {
 
-class Company;
 class Line;
-class Ride;
 class Station;
+class Ride;
+class RideNodeData;
+class CompanyNodeData;
 /**
  * @brief Interface for a provider plugin
  *
@@ -87,6 +88,18 @@ public:
      * @param partialStation partial station name.
      */
     virtual void retrieveRealTimeSuggestedStations(const QString &request, const QString &partialStation) = 0;
+    /**
+     * @brief Retrieve rides from station for real time information
+     * @param request request identifier.
+     * @param station station.
+     */
+    virtual void retrieveRealTimeRidesFromStation(const QString &request, const PT2::Station &station) = 0;
+    /**
+     * @brief Retrieve suggested lines for real time information
+     * @param request request identifier.
+     * @param partialLine partial line name.
+     */
+    virtual void retrieveRealTimeSuggestedLines(const QString &request, const QString &partialLine) = 0;
 };
 
 }

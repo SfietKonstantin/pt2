@@ -13,4 +13,5 @@ cd generated
 $XMLTOCPP -a dbusbackendwrapperadaptor -i manager/dbusbackendwrapper.h -i base/station.h \
           -l PT2::DBusBackendWrapper ../dbus-backend.xml
 $XMLTOCPP -p backenddbusproxy -i base/company.h -i base/line.h -i base/ride.h -i base/station.h \
+          -i base/companynodedata.h \
           ../dbus-backend.xml

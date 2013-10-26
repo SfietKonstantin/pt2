@@ -77,6 +77,8 @@ namespace PT2
  * Other methods are used to perform tasks that backends 
  * perform. These methods are
  * - retrieveRealTimeSuggestedStations()
+ * - retrieveRealTimeRidesFromStation()
+ * - retrieveRealTimeSuggestedLines()
  *
  * These methods are already implemented by default, but do nothing.
  * In order to perform a task, a backend should implement some
@@ -86,6 +88,8 @@ namespace PT2
  * are done though signals. The corresponding signals to the previously
  * listed methods are
  * - realTimeSuggestedStationsRetrieved()
+ * - realTimeRidesFromStationRetrieved()
+ * - realTimeSuggestedLinesRetrieved()
  *
  * A specific signal, errorRetrieved() can also be sent in order
  * to inform that there were an error. Error categories can be found
@@ -112,6 +116,18 @@ public Q_SLOTS:
      * @param partialStation partial station name.
      */
     void retrieveRealTimeSuggestedStations(const QString &request, const QString &partialStation);
+    /**
+     * @brief Retrieve rides from station for real time information
+     * @param request request identifier.
+     * @param station station.
+     */
+    void retrieveRealTimeRidesFromStation(const QString &request, const PT2::Station &station);
+    /**
+     * @brief Retrieve suggested lines for real time information
+     * @param request request identifier.
+     * @param partialLine partial line name.
+     */
+    void retrieveRealTimeSuggestedLines(const QString &request, const QString &partialLine);
 Q_SIGNALS:
     /**
      * @brief Error retrieved
@@ -126,6 +142,18 @@ Q_SIGNALS:
      * @param suggestedStationList suggested station list.
      */
     void realTimeSuggestedStationsRetrieved(const QString &request, const QList<PT2::Station> &suggestedStationList);
+    /**
+     * @brief Rides from station retrieved for real time information
+     * @param request request identifier.
+     * @param rideList ride list.
+     */
+    void realTimeRidesFromStationRetrieved(const QString &request, const QList<PT2::CompanyNodeData> &rideList);
+    /**
+     * @brief Suggested lines retrieved for real time information
+     * @param request request identifier.
+     * @param suggestedLineList suggested line list.
+     */
+    void realTimeSuggestedLinesRetrieved(const QString &request, const QList<PT2::Line> &suggestedLineList);
 };
 
 }

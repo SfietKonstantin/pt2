@@ -160,6 +160,14 @@ bool ProviderPluginDBusWrapper::load(const QString &plugin)
             d->provider, &ProviderPluginObject::retrieveRealTimeSuggestedStations);
     connect(d->provider, &ProviderPluginObject::realTimeSuggestedStationsRetrieved,
             d->proxy, &OrgSfietKonstantinPt2Interface::registerRealTimeSuggestedStations);
+    connect(d->proxy, &OrgSfietKonstantinPt2Interface::realTimeRidesFromStationRequested,
+            d->provider, &ProviderPluginObject::retrieveRealTimeRidesFromStation);
+    connect(d->provider, &ProviderPluginObject::realTimeRidesFromStationRetrieved,
+            d->proxy, &OrgSfietKonstantinPt2Interface::registerRealTimeRidesFromStation);
+    connect(d->proxy, &OrgSfietKonstantinPt2Interface::realTimeSuggestedLinesRequested,
+            d->provider, &ProviderPluginObject::retrieveRealTimeSuggestedLines);
+    connect(d->provider, &ProviderPluginObject::realTimeSuggestedLinesRetrieved,
+            d->proxy, &OrgSfietKonstantinPt2Interface::registerRealTimeSuggestedLines);
 
     // Register
     debug("provider-wrapper") << "Registration from backend with pid"

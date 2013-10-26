@@ -29,47 +29,49 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
  */
 
+#ifndef PT2_REALTIMERIDESFROMSTATIONMODEL_H
+#define PT2_REALTIMERIDESFROMSTATIONMODEL_H
 
-/**
- * @file providerpluginobject.cpp
- * @short Implementation of PT2::ProviderPluginObject
- */
-
-#include "providerpluginobject.h"
-#include "errorid.h"
+#include "abstractmodel.h"
 
 namespace PT2
 {
 
-ProviderPluginObject::ProviderPluginObject(QObject *parent):
-    QObject(parent)
+class RealTimeStationSearchModel;
+class RealTimeRidesFromStationModelPrivate;
+class RealTimeRidesFromStationModel : public AbstractModel
 {
+    Q_OBJECT
+    Q_PROPERTY(PT2::RealTimeStationSearchModel * stationSearchModel READ stationSearchModel
+               WRITE setStationSearchModel NOTIFY stationSearchModelChanged)
+public:
+    /**
+     * @short Model roles
+     */
+    enum RealTimeRidesFromStationModelRole {
+        /**
+         * @short Line role
+         */
+        LineRole = Qt::UserRole + 1,
+        /**
+         * @short Name role
+         */
+        NameRole,
+    };
+    explicit RealTimeRidesFromStationModel(QObject *parent = 0);
+    /**
+     * @short Role names
+     * @return role names.
+     */
+    QHash<int, QByteArray> roleNames() const;
+    RealTimeStationSearchModel * stationSearchModel() const;
+    void setStationSearchModel(RealTimeStationSearchModel *stationSearchModel);
+Q_SIGNALS:
+    void stationSearchModelChanged();
+private:
+    Q_DECLARE_PRIVATE(RealTimeRidesFromStationModel)
+};
+
 }
 
-ProviderPluginObject::~ProviderPluginObject()
-{
-}
-
-void ProviderPluginObject::retrieveRealTimeSuggestedStations(const QString &request, const QString &partialStation)
-{
-    Q_UNUSED(request)
-    Q_UNUSED(partialStation)
-    emit errorRetrieved(request, ERROR_NOT_IMPLEMENTED,
-                        tr("CAPABILITY_REAL_TIME_SUGGEST_STATION_FROM_STRING is not implemented"));
-}
-void ProviderPluginObject::retrieveRealTimeRidesFromStation(const QString &request, const PT2::Station &station)
-{
-    Q_UNUSED(request)
-    Q_UNUSED(station)
-    emit errorRetrieved(request, ERROR_NOT_IMPLEMENTED,
-                        tr("CAPABILITY_REAL_TIME_RIDES_FROM_STATION is not implemented"));
-}
-void ProviderPluginObject::retrieveRealTimeSuggestedLines(const QString &request, const QString &partialLine)
-{
-    Q_UNUSED(request)
-    Q_UNUSED(partialLine)
-    emit errorRetrieved(request, ERROR_NOT_IMPLEMENTED,
-                        tr("CAPABILITY_REAL_TIME_SUGGEST_LINE_FROM_STRING is not implemented"));
-}
-
-}
+#endif // PT2_REALTIMERIDESFROMSTATIONMODEL_H

@@ -1,8 +1,24 @@
 {
     "objects": {
+        "Line": {
+            "name": "PT2::Line",
+            "type": "sa{sv}sa{sv}"
+        },
+        "Ride": {
+            "name": "PT2::Ride",
+            "type": "sa{sv}sa{sv}"
+        },
         "Station": {
             "name": "PT2::Station",
             "type": "sa{sv}sa{sv}"
+        },
+        "CompanyNodeData": {
+            "name": "PT2::CompanyNodeData",
+            "type": "sa{sv}sa{sv}a(sa{sv}sa{sv}a(sa{sv}sa{sv}a(sa{sv}sa{sv})))"
+        },
+        "RideNodeData": {
+            "name": "PT2::RideNodeData",
+            "type": "sa{sv}sa{sv}a(sa{sv}sa{sv})"
         }
     },
     "methods": [
@@ -31,6 +47,64 @@
                         "object": "Station",
                         "list": true,
                         "doc": "suggested station list"
+                    }
+                ]
+            }
+        },
+        {
+            "class": "real time",
+            "name": "rides from station",
+            "doc": "",
+            "source": "",
+            "capability": {
+                "name": "RIDES_FROM_STATION",
+                "doc": "The backend is able to provide a list of rides from a \nprovided station."
+            },
+            "signal": {
+                "params": [
+                    {
+                        "name": "station",
+                        "object": "Station", 
+                        "doc": "station"
+                    }
+                ]
+            },
+            "method": {
+                "params": [
+                    {
+                        "name": "rideList",
+                        "object": "CompanyNodeData",
+                        "list": true,
+                        "doc": "ride list"
+                    }
+                ]
+            }
+        },
+        {
+            "class": "real time",
+            "name": "suggested lines",
+            "doc": "",
+            "source": "",
+            "capability": {
+                "name": "SUGGEST_LINE_FROM_STRING",
+                "doc": "The backend is able to suggest a list of lines from a \nprovided string."
+            },
+            "signal": {
+                "params": [
+                    {
+                        "name": "partialLine",
+                        "type": "s", 
+                        "doc": "partial line name"
+                    }
+                ]
+            },
+            "method": {
+                "params": [
+                    {
+                        "name": "suggestedLineList",
+                        "object": "Line",
+                        "list": true,
+                        "doc": "suggested line list"
                     }
                 ]
             }

@@ -46,6 +46,7 @@
 #include "manager/dbusbackendmanager.h"
 #include "backendmodel.h"
 #include "realtimestationsearchmodel.h"
+#include "realtimeridesfromstationmodel.h"
 
 // using custom translator so it gets properly removed from qApp when engine is deleted
 /**
@@ -113,6 +114,8 @@ public:
         qmlRegisterType<PT2::DBusBackendManager>(uri, 1, 0, "DBusBackendManager");
         qmlRegisterType<PT2::BackendModel>(uri, 1, 0, "BackendModel");
         qmlRegisterType<PT2::RealTimeStationSearchModel>(uri, 1, 0, "RealTimeStationSearchModel");
+        qmlRegisterType<PT2::RealTimeRidesFromStationModel>(uri, 1, 0,
+                                                            "RealTimeRidesFromStationModel");
     }
 };
 

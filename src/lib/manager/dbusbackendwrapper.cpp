@@ -300,6 +300,16 @@ QString DBusBackendWrapper::requestRealTimeSuggestedStations(const QString &part
     emit realTimeSuggestedStationsRequested(request, partialStation);
     return request;
 }
+QString DBusBackendWrapper::requestRealTimeRidesFromStation(const PT2::Station &station){
+    QString request = createRequest(RealTime_RidesFromStationType);
+    emit realTimeRidesFromStationRequested(request, station);
+    return request;
+}
+QString DBusBackendWrapper::requestRealTimeSuggestedLines(const QString &partialLine){
+    QString request = createRequest(RealTime_SuggestLineFromStringType);
+    emit realTimeSuggestedLinesRequested(request, partialLine);
+    return request;
+}
 
 }
 

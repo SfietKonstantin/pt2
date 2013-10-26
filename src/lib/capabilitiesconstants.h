@@ -44,5 +44,19 @@
  * provided string.
  */
 #define CAPABILITY_REAL_TIME_SUGGEST_STATION_FROM_STRING "capability:real_time_suggest_station_from_string"
+/**
+ * @short CAPABILITY_REAL_TIME_RIDES_FROM_STATION
+ *
+ * The backend is able to provide a list of rides from a 
+ * provided station.
+ */
+#define CAPABILITY_REAL_TIME_RIDES_FROM_STATION "capability:real_time_rides_from_station"
+/**
+ * @short CAPABILITY_REAL_TIME_SUGGEST_LINE_FROM_STRING
+ *
+ * The backend is able to suggest a list of lines from a 
+ * provided string.
+ */
+#define CAPABILITY_REAL_TIME_SUGGEST_LINE_FROM_STRING "capability:real_time_suggest_line_from_string"
 
 #endif // CAPABILITIESCONSTANTS_H

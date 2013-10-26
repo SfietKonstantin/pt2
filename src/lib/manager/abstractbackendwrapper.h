@@ -46,10 +46,11 @@
 namespace PT2
 {
 
-class Company;
 class Line;
-class Ride;
 class Station;
+class Ride;
+class RideNodeData;
+class CompanyNodeData;
 class AbstractBackendWrapperPrivate;
 
 /**
@@ -108,14 +109,20 @@ class AbstractBackendWrapperPrivate;
  * signals / slots used for the relay
  * - registerError()
  * - registerRealTimeSuggestedStations()
+ * - registerRealTimeRidesFromStation()
+ * - registerRealTimeSuggestedLines()
  * and
  * - errorRegistered()
  * - realTimeSuggestedStationsRegistered()
+ * - realTimeRidesFromStationRegistered()
+ * - realTimeSuggestedLinesRegistered()
  *
  * This class also provides interfaces for implementing some capabilities
  * of the providers, that should be implemented in subclasses. They are all
  * of the form \b requestAbc.
  * - requestRealTimeSuggestedStations()
+ * - requestRealTimeRidesFromStation()
+ * - requestRealTimeSuggestedLines()
  *
  * All these requests returns a request identifier, and all responses will
  * provide the same identifier, in order to identify the request more easily.
@@ -173,7 +180,15 @@ public:
         /**
          * @short Request suggested stations for real time information
          */
-        RealTime_SuggestStationFromStringType
+        RealTime_SuggestStationFromStringType,
+        /**
+         * @short Request rides from station for real time information
+         */
+        RealTime_RidesFromStationType,
+        /**
+         * @short Request suggested lines for real time information
+         */
+        RealTime_SuggestLineFromStringType
     };
 
     /**
@@ -226,6 +241,18 @@ public:
      * @return request identifier.
      */
     virtual QString requestRealTimeSuggestedStations(const QString &partialStation) = 0;
+    /**
+     * @brief Request rides from station for real time information
+     * @param station station.
+     * @return request identifier.
+     */
+    virtual QString requestRealTimeRidesFromStation(const PT2::Station &station) = 0;
+    /**
+     * @brief Request suggested lines for real time information
+     * @param partialLine partial line name.
+     * @return request identifier.
+     */
+    virtual QString requestRealTimeSuggestedLines(const QString &partialLine) = 0;
 public Q_SLOTS:
     /**
      * @brief Launch the backend
@@ -282,6 +309,18 @@ public Q_SLOTS:
      * @param suggestedStationList suggested station list.
      */
     void registerRealTimeSuggestedStations(const QString &request, const QList<PT2::Station> &suggestedStationList);
+    /**
+     * @brief Register rides from station for real time information
+     * @param request request identifier.
+     * @param rideList ride list.
+     */
+    void registerRealTimeRidesFromStation(const QString &request, const QList<PT2::CompanyNodeData> &rideList);
+    /**
+     * @brief Register suggested lines for real time information
+     * @param request request identifier.
+     * @param suggestedLineList suggested line list.
+     */
+    void registerRealTimeSuggestedLines(const QString &request, const QList<PT2::Line> &suggestedLineList);
 Q_SIGNALS:
     /**
      * @brief Status changed
@@ -314,6 +353,24 @@ Q_SIGNALS:
      * @param suggestedStationList suggested station list.
      */
     void realTimeSuggestedStationsRegistered(const QString &request, const QList<PT2::Station> &suggestedStationList);
+    /**
+     * @brief Rides from station registered for real time information
+     *
+     * This signal is used to relay registered rides from station for real time information
+     *
+     * @param request request identifier.
+     * @param rideList ride list.
+     */
+    void realTimeRidesFromStationRegistered(const QString &request, const QList<PT2::CompanyNodeData> &rideList);
+    /**
+     * @brief Suggested lines registered for real time information
+     *
+     * This signal is used to relay registered suggested lines for real time information
+     *
+     * @param request request identifier.
+     * @param suggestedLineList suggested line list.
+     */
+    void realTimeSuggestedLinesRegistered(const QString &request, const QList<PT2::Line> &suggestedLineList);
 protected:
     /**
      * @brief D-pointer based constructor

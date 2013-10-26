@@ -75,6 +75,18 @@ public:
      * @return request identifier.
      */
     QString requestRealTimeSuggestedStations(const QString &partialStation);
+    /**
+     * @brief Request rides from station for real time information
+     * @param station station.
+     * @return request identifier.
+     */
+    QString requestRealTimeRidesFromStation(const PT2::Station &station);
+    /**
+     * @brief Request suggested lines for real time information
+     * @param partialLine partial line name.
+     * @return request identifier.
+     */
+    QString requestRealTimeSuggestedLines(const QString &partialLine);
 public Q_SLOTS:
     /**
      * @brief Launch the backend
@@ -113,6 +125,24 @@ Q_SIGNALS:
      * @param partialStation partial station name.
      */
     void realTimeSuggestedStationsRequested(const QString &request, const QString &partialStation);
+    /**
+     * @brief Rides from station requested for real time information
+     *
+     * This is a DBus proxy signal.
+     *
+     * @param request request identifier.
+     * @param station station.
+     */
+    void realTimeRidesFromStationRequested(const QString &request, const PT2::Station &station);
+    /**
+     * @brief Suggested lines requested for real time information
+     *
+     * This is a DBus proxy signal.
+     *
+     * @param request request identifier.
+     * @param partialLine partial line name.
+     */
+    void realTimeSuggestedLinesRequested(const QString &request, const QString &partialLine);
 
 private:
     Q_DECLARE_PRIVATE(DBusBackendWrapper)

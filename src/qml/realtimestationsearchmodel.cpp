@@ -124,6 +124,8 @@ void RealTimeStationSearchModelPrivate::slotStationsRegistered(const QString & r
 
     removeRequest(request);
 
+    bool support = backend->capabilities().contains(CAPABILITY_REAL_TIME_RIDES_FROM_STATION);
+
     ModelDataList addedData;
     foreach (Station station, stations) {
         ModelData data;
@@ -131,6 +133,7 @@ void RealTimeStationSearchModelPrivate::slotStationsRegistered(const QString & r
         data.insert(Qt::UserRole + BACKEND_IDENTIFIER_INDEX, backend->identifier());
         data.insert(RealTimeStationSearchModel::NameRole, station.name());
         // TODO ProviderNameRole
+        data.insert(RealTimeStationSearchModel::SupportRidesFromStationRole, support);
         addedData.append(data);
     }
     debug("station-search-model") << "Inserting" << addedData.count() << "elements";
@@ -155,6 +158,7 @@ QHash<int, QByteArray> RealTimeStationSearchModel::roleNames() const
 {
     QHash <int, QByteArray> roles;
     roles.insert(NameRole, "name");
+    roles.insert(SupportRidesFromStationRole, "supportRidesFromStation");
     roles.insert(ProviderNameRole, "providerName");
     return roles;
 }
@@ -178,6 +182,37 @@ void RealTimeStationSearchModel::search(const QString &partialStation)
             d->addRequest(request);
         }
     }
+}
+
+void RealTimeStationSearchModel::requestRidesFromStation(int index)
+{
+    Q_UNUSED(index)
+    Q_D(RealTimeStationSearchModel);
+    if (index < 0 || index >= rowCount()) {
+        return;
+    }
+
+    const ModelData &data = d->data(index);
+    if (!data.value(SupportRidesFromStationRole).toBool()) {
+        return;
+    }
+
+    if (!d->backendManager) {
+        return;
+    }
+
+    QString backendIdentifier = data.value(Qt::UserRole + BACKEND_IDENTIFIER_INDEX).toString();
+
+    if (!d->backendManager->contains(backendIdentifier)) {
+        return;
+    }
+
+    AbstractBackendWrapper *backend = d->backendManager->backend(backendIdentifier);
+    Station station = data.value(Qt::UserRole + STATION_INDEX).value<Station>();
+    debug("realtime-station-search-model") << "Requesting real time rides for" << station.name();
+
+    QString request = backend->requestRealTimeRidesFromStation(station);
+    emit ridesFromStationRequested(backend, request, station);
 }
 
 }
