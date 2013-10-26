@@ -311,11 +311,11 @@ header += """
 namespace PT2
 {
 
-class Company;
-class Line;
-class Ride;
-class Station;
-/**
+"""
+for object in objects:
+    header += "class " + object + ";\n"
+
+header += """/**
  * @brief Interface for a provider plugin
  *
  * A provider plugin is a Qt / C++ plugin that can
@@ -550,11 +550,12 @@ header += """#ifndef PT2_ABSTRACTBACKENDWRAPPER_H
 namespace PT2
 {
 
-class Company;
-class Line;
-class Ride;
-class Station;
-class AbstractBackendWrapperPrivate;
+"""
+
+for object in objects:
+    header += "class " + object + ";\n"
+
+header += """class AbstractBackendWrapperPrivate;
 
 /**
  * @brief Base class for a backend wrapper
